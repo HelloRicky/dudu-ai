@@ -54,7 +54,7 @@ const MODES = [
     id: "quest",
     emoji: "🎯",
     title: "Quick Quest",
-    subtitle: "Coming soon!",
+    subtitle: "Coming soon...",
     description: "Epic challenges are being prepared. Stay tuned!",
     bgFrom: "#F5F5F5",
     bgTo: "#EBEBEB",
@@ -184,9 +184,13 @@ export default async function LearningHubPage({
 
       {/* Mode Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-xl mx-auto">
-        {MODES.map((mode, i) => (
-          <div
+        {MODES.map((mode, i) => {
+          const CardWrapper = mode.comingSoon ? "div" : "a";
+          const wrapperProps = mode.comingSoon ? {} : { href: `/${profileId}/${mode.id}` };
+          return (
+          <CardWrapper
             key={mode.id}
+            {...(wrapperProps as Record<string, string>)}
             className={`press-effect rounded-3xl overflow-hidden animate-pop-in card-${i + 1} ${mode.comingSoon ? "opacity-60" : ""}`}
             style={{
               background: `linear-gradient(145deg, ${mode.bgFrom}, ${mode.bgTo})`,
@@ -196,6 +200,8 @@ export default async function LearningHubPage({
                 : `0 6px 0 ${mode.border}88, 0 10px 20px rgba(0,0,0,0.08)`,
               opacity: 0,
               cursor: mode.comingSoon ? "not-allowed" : "pointer",
+              textDecoration: "none",
+              display: "block",
             }}
           >
             <div className="p-5">
@@ -238,8 +244,9 @@ export default async function LearningHubPage({
                 </div>
               )}
             </div>
-          </div>
-        ))}
+          </CardWrapper>
+          );
+        })}
       </div>
 
       <p
