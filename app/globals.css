@@ -1,26 +1,119 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-nunito: "Nunito", sans-serif;
+  
+  /* DuduAI Color Palette */
+  --color-sunny: #FFB830;
+  --color-sunny-light: #FFD980;
+  --color-sky: #4ECDC4;
+  --color-sky-light: #A8EFEB;
+  --color-coral: #FF6B6B;
+  --color-mint: #6BCB77;
+  --color-cream: #FFF8EC;
+  --color-lavender: #C9B8FF;
+  --color-text-dark: #2D2D2D;
+  --color-text-mid: #5A5A7A;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-nunito), sans-serif;
+  background-color: var(--color-cream);
+  color: var(--color-text-dark);
+  -webkit-tap-highlight-color: transparent;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Animated star background */
+.star-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.star-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(255, 184, 48, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 85% 70%, rgba(78, 205, 196, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(201, 184, 255, 0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Bounce animation for Dudu */
+@keyframes dudu-bounce {
+  0%, 100% { transform: translateY(0px) rotate(-3deg); }
+  50% { transform: translateY(-12px) rotate(3deg); }
+}
+
+@keyframes dudu-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+@keyframes pop-in {
+  0% { transform: scale(0.8); opacity: 0; }
+  70% { transform: scale(1.05); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slide-up {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  50% { opacity: 0.6; transform: scale(1.2) rotate(20deg); }
+}
+
+.animate-bounce-dudu {
+  animation: dudu-bounce 2.5s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: dudu-float 3s ease-in-out infinite;
+}
+
+.animate-wiggle {
+  animation: wiggle 2s ease-in-out infinite;
+}
+
+.animate-pop-in {
+  animation: pop-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.4s ease-out forwards;
+}
+
+.animate-sparkle {
+  animation: sparkle 1.5s ease-in-out infinite;
+}
+
+/* Staggered card animations */
+.card-1 { animation-delay: 0.1s; }
+.card-2 { animation-delay: 0.2s; }
+.card-3 { animation-delay: 0.3s; }
+.card-4 { animation-delay: 0.4s; }
+
+/* Press effect for tappable elements */
+.press-effect {
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  cursor: pointer;
+}
+
+.press-effect:active {
+  transform: scale(0.95);
 }
